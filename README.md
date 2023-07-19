@@ -1,6 +1,6 @@
 ---
 title: VideoChain-UI
-emoji: 🎬
+emoji: 🎬🔗
 colorFrom: "#1a1b1c"
 colorTo: "#acb1b5"
 sdk: docker

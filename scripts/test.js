@@ -2,14 +2,14 @@ const { promises: fs } = require("node:fs")
 
 const main = async () => {
   console.log('generating shot..')
-  const response = await fetch("http://localhost:3000/api/shot", {
+  const response = await fetch(process.env."http://localhost:3000/api/shot", {
     method: "POST",
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      token: process.env.VS_SECRET_ACCESS_TOKEN,
+      token: process.env.VC_SECRET_ACCESS_TOKEN,
       shotPrompt: "video of a dancing cat"
     })
   });

@@ -1,8 +1,11 @@
 import Head from "next/head"
 
-import Main from "./main"
+import { getPendingTasks } from "@/api"
 
-export default function Index() {
+
+export default async function Pending() {
+  const tasks = await getPendingTasks()
+  console.log(`tasks:`, tasks)
   return (
     <div>
       <Head>
@@ -10,7 +13,7 @@ export default function Index() {
       </Head>
       <main className="h-screen w-full flex bg-gray-700 text-gray-200">
         <div className="flex flex-col">
-          <Main />
+          Nb tasks: {tasks.length}
         </div>
       </main>
     </div>

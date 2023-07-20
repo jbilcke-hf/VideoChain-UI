@@ -1,6 +1,6 @@
 import Head from "next/head"
 
-import Main from "./main"
+import { Timeline } from "@/components/business/timeline"
 
 export default function Index() {
   return (
@@ -10,7 +10,7 @@ export default function Index() {
       </Head>
       <main className="h-screen w-full flex bg-gray-700 text-gray-200">
         <div className="flex flex-col">
-          <Main />
+          <Timeline />
         </div>
       </main>
     </div>

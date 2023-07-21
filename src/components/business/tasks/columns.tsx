@@ -83,8 +83,8 @@ export const columns: ColumnDef<VideoTask>[] = [
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
-        href={`/api/download/${row.getValue("fileName")}`}>
-        <video src={`/api/download/${row.getValue("fileName")}?progress=${row.getValue("progressPercent") || 0}`} muted autoPlay loop />
+        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>
+        <video src={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}?progress=${row.getValue("progressPercent") || 0}`} muted autoPlay loop />
       </a>
     </div>,
     enableSorting: false,
@@ -99,7 +99,7 @@ export const columns: ColumnDef<VideoTask>[] = [
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
-        href={`/api/download/${row.getValue("fileName")}`}>Download</a>
+        href={`/${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>Download</a>
     </div>,
     enableSorting: false,
     enableHiding: false,

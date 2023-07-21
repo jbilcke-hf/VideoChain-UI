@@ -13,7 +13,13 @@ export function RefreshStudio() {
     const slug = `${pathname.split("/").pop()}`
     setInterval(() => {
       console.log("refresh things!", slug)
-      startTransition(() => refreshStudio(slug))
+      startTransition(() => {
+        try {
+          refreshStudio(slug)
+        } catch (err) {
+          // ignoring
+        }
+      })
     }, 2000)
   }, [])
   

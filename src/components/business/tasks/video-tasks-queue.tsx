@@ -64,7 +64,7 @@ export function VideoTasksQueue({
   })
   
   return (
-    <div className="rounded-lg border overflow-hidden">
+    <div className="rounded-lg border">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

@@ -99,7 +99,7 @@ export const columns: ColumnDef<VideoTask>[] = [
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
-        href={`/${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>Download</a>
+        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>Download</a>
     </div>,
     enableSorting: false,
     enableHiding: false,

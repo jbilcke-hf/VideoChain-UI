@@ -3,8 +3,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 
-import { statuses } from "@/app/data/data"
-
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
 
@@ -49,7 +47,7 @@ export const columns: ColumnDef<VideoTask>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">
+          <span className="max-w-[500px] font-medium">
             {row.getValue("videoPrompt")}
           </span>
         </div>

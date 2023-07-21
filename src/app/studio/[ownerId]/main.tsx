@@ -30,6 +30,9 @@ export default async function Main({ ownerId }: { ownerId: string }) {
           <p className="text-md font-thin">
             Powered by <span className="font-normal">Hugging Face 🤗</span>
           </p>
+          <p className="text-md font-thin">
+            Keep the <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">the link</a> to this page!
+          </p>
         </div>
 
         <input

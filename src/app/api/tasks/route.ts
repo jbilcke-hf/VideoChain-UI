@@ -1,7 +1,7 @@
 import { VideoTask, VideoTaskRequest } from "@/app/types"
 import { getPendingTasks, submitNewTask } from "@/server"
-import { NextApiRequest, NextApiResponse } from "next"
-import { NextResponse } from "next/server"
+import { NextApiResponse } from "next"
+import { NextRequest, NextResponse } from "next/server"
  
 // TODO: implement some kind of quota system
 export async function GET() {
@@ -12,7 +12,7 @@ export async function GET() {
 
 // TODO: implement some kind of quota system
 export async function POST(
-  req: NextApiRequest,
+  req: NextRequest,
   res: NextApiResponse<VideoTask | {
     error?: string
   }>

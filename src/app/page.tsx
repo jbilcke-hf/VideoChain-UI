@@ -1,18 +1,7 @@
-import Head from "next/head"
-
-import Main from "./main"
+import { redirect } from 'next/navigation'
+import { v4 as uuidv4 } from "uuid"
 
 export default function Index() {
-  return (
-    <div>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=5.0, minimum-scale=0.86" />
-      </Head>
-      <main className="h-screen w-full flex bg-gray-700 text-gray-200">
-        <div className="flex flex-col">
-          <Main />
-        </div>
-      </main>
-    </div>
-  )
+  const uuid = uuidv4()
+  redirect(`/studio/${uuid}`)
 }

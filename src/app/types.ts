@@ -210,7 +210,6 @@ export interface VideoSequenceData {
 
   hasAssembledVideo: boolean
   nbCompletedShots: number
-  nbTotalShots: number
   progressPercent: number
   completedAt: string
   completed: boolean
@@ -219,11 +218,12 @@ export interface VideoSequenceData {
 
 export type VideoSequence = VideoSequenceMeta & VideoSequenceData
 
-export type VideoSequenceRequest = {
-  token: string
-  sequence: VideoSequenceMeta
-  shots: VideoShotMeta[]
-}
+export type VideoTaskRequest = Partial<{
+  prompt: string
+  ownerId: string
+  sequence: Partial<VideoSequenceMeta>
+  shots: Array<Partial<VideoShotMeta>>
+}>
 
 export type VideoTask = VideoSequence & {
   shots: VideoShot[]

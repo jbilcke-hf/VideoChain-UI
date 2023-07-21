@@ -1,17 +1,16 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-
-import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 
-import { labels, priorities, statuses } from "@/app/data/data"
+import { statuses } from "@/app/data/data"
 
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
-import { Task } from "@/app/data/schema"
 
-export const columns: ColumnDef<Task>[] = [
+import { VideoTask } from "@/app/types"
+
+export const columns: ColumnDef<VideoTask>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -26,7 +25,7 @@ export const columns: ColumnDef<Task>[] = [
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label="Select video"
         className="translate-y-[2px]"
       />
     ),
@@ -36,25 +35,22 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader column={column} title="Video ID" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="w-[80px]">{`${row.getValue("id") || ''}`.split("-")[0]}..</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "videoPrompt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Prompt" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label)
-
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.getValue("videoPrompt")}
           </span>
         </div>
       )
@@ -88,34 +84,40 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
-    accessorKey: "priority",
+    accessorKey: "preview",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
+      null // no header
     ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority")
-      )
-
-      if (!priority) {
-        return null
-      }
-
-      return (
-        <div className="flex items-center">
-          {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{priority.label}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    cell: ({ row }) => <div className="w-[200px]">
+      <a
+        className="hover:underline cursor-pointer"
+        target="_blank"
+        href={`/api/download/${row.getValue("fileName")}`}>
+        <video src={`/api/download/${row.getValue("fileName")}`} muted autoPlay />
+      </a>
+    </div>,
+    enableSorting: false,
+    enableHiding: false,
   },
+  {
+    accessorKey: "fileName",
+    header: ({ column }) => (
+      null // no header
+    ),
+    cell: ({ row }) => <div className="w-[80px]">
+      <a
+        className="hover:underline cursor-pointer"
+        target="_blank"
+        href={`/api/download/${row.getValue("fileName")}`}>Download</a>
+    </div>,
+    enableSorting: false,
+    enableHiding: false,
+  },
+  /*
+  action menu (currently disabled)
   {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
+  */
 ]

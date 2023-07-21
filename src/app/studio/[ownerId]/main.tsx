@@ -1,12 +1,14 @@
 "use server"
 
 // import { experimental_useFormStatus as useFormStatus } from "react-dom"
- 
-import { VideoTasksQueue } from "@/components/business/tasks/video-tasks-queue"
+
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { formSubmit } from "@/server/actions"
+
 import { getTasks } from "@/server"
+import { VideoTasksQueue } from "@/components/business/tasks/video-tasks-queue"
+import { RefreshStudio } from "@/components/business/refresh"
 
 export default async function Main({ ownerId }: { ownerId: string }) {
   const tasks = await getTasks(ownerId)
@@ -62,6 +64,7 @@ export default async function Main({ ownerId }: { ownerId: string }) {
         </Button>
       </div>
       <VideoTasksQueue tasks={tasks} />
+      <RefreshStudio />
     </form>
   )
 }

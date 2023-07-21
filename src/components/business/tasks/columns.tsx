@@ -57,25 +57,16 @@ export const columns: ColumnDef<VideoTask>[] = [
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "progressPercent",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="Progress" />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status")
-      )
-
-      if (!status) {
-        return null
-      }
+      const progress = Number(row.getValue("progressPercent") || 0)
 
       return (
         <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
+          <span>{progress}%</span>
         </div>
       )
     },
@@ -93,7 +84,7 @@ export const columns: ColumnDef<VideoTask>[] = [
         className="hover:underline cursor-pointer"
         target="_blank"
         href={`/api/download/${row.getValue("fileName")}`}>
-        <video src={`/api/download/${row.getValue("fileName")}`} muted autoPlay />
+        <video src={`/api/download/${row.getValue("fileName")}?progress=${row.getValue("progressPercent") || 0}`} muted autoPlay loop />
       </a>
     </div>,
     enableSorting: false,

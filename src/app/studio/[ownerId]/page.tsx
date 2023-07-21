@@ -3,8 +3,6 @@ import Head from "next/head"
 import Main from "./main"
 
 export default async function StudioPage({ params: { ownerId } }: { params: { ownerId: string }}) {
-  console.log('ownerId:', ownerId)
-
   return (
     <div>
       <Head>

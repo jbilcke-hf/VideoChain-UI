@@ -11,9 +11,9 @@ export const get = async <T>(path: string = '', defaultValue: T): Promise<T> => 
         Accept: "application/json",
         Authorization: `Bearer ${process.env.VC_SECRET_ACCESS_TOKEN}`,
       },
-     cache: 'no-store',
+     //cache: 'no-store',
      // we can also use this (see https://vercel.com/blog/vercel-cache-api-nextjs-cache)
-     // next: { revalidate: 10 }
+     next: { revalidate: 2 }
     })
 
     // The return value is *not* serialized

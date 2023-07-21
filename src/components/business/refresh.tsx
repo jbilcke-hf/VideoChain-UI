@@ -9,6 +9,7 @@ export function RefreshStudio() {
   const pathname = usePathname()
   const [isPending, startTransition] = useTransition()
   
+  /*
   useEffect(() => {
     const slug = `${pathname.split("/").pop()}`
     setInterval(() => {
@@ -22,6 +23,7 @@ export function RefreshStudio() {
       })
     }, 2000)
   }, [])
+  */
   
   // TODO we could display a spinner here
   return <></>

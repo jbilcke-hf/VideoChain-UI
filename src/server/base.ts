@@ -45,9 +45,9 @@ export const post = async <S, T>(path: string = '', payload: S, defaultValue: T)
         Authorization: `Bearer ${process.env.VC_SECRET_ACCESS_TOKEN}`,
       },
       body: JSON.stringify(payload),
-      cache: 'no-store',
+      // cache: 'no-store',
       // we can also use this (see https://vercel.com/blog/vercel-cache-api-nextjs-cache)
-      // next: { revalidate: 10 }
+      next: { revalidate: 1 }
     })
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.

@@ -29,9 +29,11 @@ import { VideoTask } from "@/app/types"
 import { useState } from "react"
 
 export function VideoTasksQueue({
-  tasks
+  videoTasks = [],
+  onSelectVideo,
 }: {
-  tasks: VideoTask[]
+  videoTasks: VideoTask[]
+  onSelectVideo: (task: VideoTask) => void
 }) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -42,7 +44,7 @@ export function VideoTasksQueue({
   const [sorting, setSorting] = useState<SortingState>([])
 
   const table = useReactTable({
-    data: tasks,
+    data: videoTasks,
     columns: columns as ColumnDef<VideoTask, any>[],
     state: {
       sorting,
@@ -92,7 +94,14 @@ export function VideoTasksQueue({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id}
+                  onClick={() => {
+                    const videoId = `${row.getValue("id") || ""}`
+                    const video = videoTasks.find(({ id }) => id === videoId)
+                    if (video) {
+                      onSelectVideo(video)
+                    }
+                  }}>
                     {flexRender(
                       cell.column.columnDef.cell,
                       cell.getContext()

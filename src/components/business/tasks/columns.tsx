@@ -32,12 +32,10 @@ export const columns: ColumnDef<VideoTask>[] = [
   },
   {
     accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Video ID" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{`${row.getValue("id") || ''}`.split("-")[0]}..</div>,
+    header: ({ column }) => null,
+    cell: ({ row }) => null,
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
   {
     accessorKey: "videoPrompt",
@@ -63,7 +61,7 @@ export const columns: ColumnDef<VideoTask>[] = [
       const progress = Number(row.getValue("progressPercent") || 0)
 
       return (
-        <div className="flex w-[100px] items-center">
+        <div className="flex w-[30px] items-center">
           <span>{progress}%</span>
         </div>
       )
@@ -77,12 +75,12 @@ export const columns: ColumnDef<VideoTask>[] = [
     header: ({ column }) => (
       null // no header
     ),
-    cell: ({ row }) => <div className="w-[200px]">
+    cell: ({ row }) => <div className="w-[120px]">
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
         href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>
-        <video src={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}?progress=${row.getValue("progressPercent") || 0}`} muted autoPlay loop />
+        <video src={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}?progress=${row.getValue("progressPercent") || 0}`} muted />
       </a>
     </div>,
     enableSorting: false,

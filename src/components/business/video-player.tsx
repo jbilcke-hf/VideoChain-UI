@@ -5,7 +5,9 @@ import { VideoTask } from "@/app/types"
 export const VideoPlayer = ({ video }: { video?: VideoTask }) => {
 
   if (typeof video === "undefined") {
-    return <p>No video to display</p>
+    return <div className="flex w-full h-screen items-center justify-center text-center">
+      <div>No video to display</div>
+    </div>
   }
 
   return (

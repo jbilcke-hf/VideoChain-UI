@@ -95,6 +95,7 @@ export function VideoTasksQueue({
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}
+                  className="cursor-pointer"
                   onClick={() => {
                     const videoId = `${row.getValue("id") || ""}`
                     const video = videoTasks.find(({ id }) => id === videoId)

@@ -13,7 +13,7 @@ export default function Main({ videoTasks }: { videoTasks: VideoTask[] }) {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="h-full flex flex-col space-y-4 w-full md:w-[600px] px-4 py-8">
+      <div className="h-full flex flex-col space-y-4 w-full md:w-[800px] px-4 py-8">
         <VideoForm />
         <VideoTasksQueue videoTasks={videoTasks} onSelectVideo={selectVideo} />
         <RefreshStudio />

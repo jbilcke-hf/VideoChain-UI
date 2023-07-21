@@ -51,6 +51,7 @@ export const columns: ColumnDef<VideoTask>[] = [
         </div>
       )
     },
+    enableSorting: false,
   },
   {
     accessorKey: "progressPercent",
@@ -61,21 +62,19 @@ export const columns: ColumnDef<VideoTask>[] = [
       const progress = Number(row.getValue("progressPercent") || 0)
 
       return (
-        <div className="flex w-[30px] items-center">
+        <div className="flex items-center">
           <span>{progress}%</span>
         </div>
       )
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    enableSorting: false,
   },
   {
     accessorKey: "preview",
     header: ({ column }) => (
       null // no header
     ),
-    cell: ({ row }) => <div className="w-[120px]">
+    cell: ({ row }) => <div className="w-[100px]">
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
@@ -91,11 +90,11 @@ export const columns: ColumnDef<VideoTask>[] = [
     header: ({ column }) => (
       null // no header
     ),
-    cell: ({ row }) => <div className="w-[80px]">
+    cell: ({ row }) => <div className="">
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
-        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>Download</a>
+        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>Save</a>
     </div>,
     enableSorting: false,
     enableHiding: false,

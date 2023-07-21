@@ -3,7 +3,7 @@
 import { useEffect, useTransition } from "react"
 import { usePathname } from "next/navigation"
 
-// import { experimental_useFormStatus as useFormStatus } from "react-dom"
+import { experimental_useFormStatus as useFormStatus } from "react-dom"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { formSubmit } from "@/server/actions"
@@ -11,7 +11,7 @@ import { formSubmit } from "@/server/actions"
 export const VideoForm = () => {
   const pathname = usePathname()
   const ownerId = pathname.split("/").pop()
-  const [isPending, startTransition] = useTransition()
+  const { pending } = useFormStatus()
 
   return (
     <form
@@ -57,8 +57,9 @@ export const VideoForm = () => {
           size="lg"
           className="text-md md:w-32"
           type="submit"
+          disabled={pending}
         >
-          Generate
+          {pending ? "Loading.." : "Generate"}
         </Button>
       </div>
     </form>

@@ -16,8 +16,10 @@ export const VideoPlayer = ({ video }: { video?: Video }) => {
           src={`${
             process.env.NEXT_PUBLIC_DOWNLOAD_URL
           }/${
-            video.fileName
-          }?progress=${
+            video.ownerId
+          }/${
+            video.id
+          }.mp4?progress=${
             video.progressPercent
           }`}
           muted

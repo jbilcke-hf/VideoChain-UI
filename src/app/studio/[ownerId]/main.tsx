@@ -12,13 +12,13 @@ export default function Main({ videos }: { videos: Video[] }) {
   const [selectedVideo, selectVideo] = useState<Video>()
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="h-full flex flex-col space-y-4 w-full md:w-[800px] px-4 py-8">
+    <div className="flex flex-col md:flex-row w-full">
+      <div className="h-full flex flex-col space-y-4 w-full md:w-1/2 px-4 py-8">
         <VideoForm />
         <VideosQueue videos={videos} onSelectVideo={selectVideo} />
         <RefreshStudio />
       </div>
-      <div className="flex flex-col w-auto">
+      <div className="flex flex-col w-1/2">
         <VideoPlayer video={selectedVideo} />
       </div>
     </div>

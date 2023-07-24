@@ -8,6 +8,7 @@ import { VideoActions } from "./video-actions"
 
 import { Video } from "@/app/types"
 import { deleteVideo } from "@/server"
+import { triggerDownload } from "@/lib/triggerDownload"
 
 export const columns: ColumnDef<Video>[] = [
   {
@@ -61,24 +62,18 @@ export const columns: ColumnDef<Video>[] = [
     enableSorting: false,
   },
   {
-    accessorKey: "fileName",
+    id: "preview",
     header: ({ column }) => null,// no header
     cell: ({ row: { original: { ownerId, id, progressPercent } } }) => <div className="w-[100px]">
-      <a
-        className="hover:underline cursor-pointer"
-        target="_blank"
-        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${ownerId}/${id}.mp4`}>
-        <video src={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${ownerId}/${id}.mp4?progress=${progressPercent || 0}`} muted />
-      </a>
+      <video src={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${ownerId}/${id}.mp4?progress=${progressPercent || 0}`} muted />
     </div>,
     enableSorting: false,
     enableHiding: false,
   },
-  /*
   {
-    accessorKey: "fileName",
+    id: "save",
     header: ({ column }) => null,
-    cell: ({ row: { original: { fileName, ownerId, id }} }) => <div className="">
+    cell: ({ row: { original: { ownerId, id }} }) => <div className="">
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
@@ -87,9 +82,36 @@ export const columns: ColumnDef<Video>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  */
   {
-    accessorKey: "delete",
+    id: "save",
+    header: ({ column }) => null,
+    cell: ({ row: { original } }) => {
+      const scene = JSON.stringify({
+        videoPrompt: original.videoPrompt,
+        backgroundAudioPrompt: original.backgroundAudioPrompt,
+        foregroundAudioPrompt: original.foregroundAudioPrompt,
+        shots: original.shots.map(shot => ({
+          shotPrompt: shot.shotPrompt,
+          backgroundAudioPrompt: shot.backgroundAudioPrompt,
+          foregroundAudioPrompt: shot.foregroundAudioPrompt,
+          actorPrompt: shot.actorPrompt,
+          actorVoicePrompt: shot.actorVoicePrompt,
+          actorDialoguePrompt: shot.actorDialoguePrompt,
+        }))
+      }, null, 2)
+      return (<div className="">
+        <a
+          className="hover:underline cursor-pointer"
+          target="_blank"
+          onClick={() => triggerDownload("scene.json", scene)}>Scene</a>
+      </div>
+      )
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    id: "delete",
     header: ({ column }) => null, // no header
     cell: ({ row: { original } }) => <div
       className="hover:underline cursor-pointer"
@@ -97,8 +119,10 @@ export const columns: ColumnDef<Video>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+  /*
   {
     id: "actions",
     cell: ({ row }) => <VideoActions row={row} />,
   },
+  */
 ]

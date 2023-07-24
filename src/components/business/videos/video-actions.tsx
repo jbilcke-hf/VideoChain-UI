@@ -34,10 +34,12 @@ export function VideoActions({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-      <DropdownMenuItem>
+        {/*
+        <DropdownMenuItem>
           Pause generation
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>
+       */}
         <DropdownMenuItem>Download</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>

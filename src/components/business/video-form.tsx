@@ -17,27 +17,24 @@ export const VideoForm = () => {
     <form
       action={handleFormSubmit}
     >
-      <div className="flex flex-col md:hidden w-full text-center">
-        <h2 className="text-4xl font-thin tracking-tight">VideoChain UI</h2>
-        <p className="text-md font-thin">
-          Powered by <span className="font-normal">Hugging Face 🤗</span>
-        </p>
-        <p className="text-md font-thin">
-          Keep the <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">the link</a> to this page!
-        </p>
-      </div>
-
-      <div className="flex items-center justify-between md:space-x-3 w-full">
-        <div className="hidden md:flex flex-col w-54">
+      <div className="flex flex-row w-full">
+        <div className="flex flex-col w-1/2 text-center">
           <h2 className="text-4xl font-thin tracking-tight">VideoChain UI</h2>
           <p className="text-md font-thin">
             Powered by <span className="font-normal">Hugging Face 🤗</span>
           </p>
+        </div>
+        <div className="flex flex-col w-1/2 text-center">
           <p className="text-md font-thin">
-            Save <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">the link</a> to your favorites!
+            This is an experimental Space, for research and demonstration purposes only.
+          </p>
+          <p className="text-md font-thin">
+            This page has a unique URL, keep <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">the link</a> to share videos!
           </p>
         </div>
+      </div>
 
+      <div className="flex items-center justify-between md:space-x-3 w-full">
         <input
           type="hidden"
           id="ownerId"
@@ -48,8 +45,8 @@ export const VideoForm = () => {
         <Textarea
           id="prompt"
           name="prompt"
-          placeholder="Video of llamas playing baseball.."
-          className="md:w-3/6 mr-3 md:mr-0"
+          placeholder="6 sec video of llamas playing soccer"
+          className="mr-3 md:mr-0"
         />
 
         <Button

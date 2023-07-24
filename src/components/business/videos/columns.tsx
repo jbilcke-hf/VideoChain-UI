@@ -60,7 +60,7 @@ export const columns: ColumnDef<Video>[] = [
     cell: ({ row: { original: { progressPercent, status }} }) => (
       <div className="flex items-center"><span>{
         status === "pending"
-          ? `${Number(progressPercent || 0)}%}`
+          ? `${Number(progressPercent || 0)}%`
         : status === "completed"
           ? "done"
           : status === "abort"

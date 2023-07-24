@@ -19,14 +19,14 @@ export const VideoForm = () => {
     >
       <div className="flex flex-row w-full">
         <div className="flex flex-col w-1/2 text-center">
-          <h2 className="text-4xl font-thin tracking-tight">VideoChain UI</h2>
+          <h2 className="text-4xl font-thin tracking-tight">VideoChain 🎬</h2>
           <p className="text-md font-thin">
             Powered by <span className="font-normal">Hugging Face 🤗</span>
           </p>
         </div>
         <div className="flex flex-col w-1/2 text-center">
           <p className="text-md font-thin">
-            Video generation use shared resources, so please use responsibly. You can delete pending videos to accelerate other ones.
+            For demonstration purposes only. Please use responsibly, and cancel any video you don't need anymore.
             You have been assigned this temporary unique URL ID: <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">{ownerId}</a>
 
           </p>
@@ -44,7 +44,7 @@ export const VideoForm = () => {
         <Textarea
           id="prompt"
           name="prompt"
-          placeholder="6 sec video of llamas playing soccer"
+          placeholder="a cat playing the piano during 6 seconds"
           className="mr-3 md:mr-0"
         />
 

@@ -10,6 +10,7 @@ import { triggerDownload } from "@/lib/triggerDownload"
 import { ChangeStatusButton } from "./change-status-button"
 
 export const columns: ColumnDef<Video>[] = [
+  /*
   {
     id: "select",
     header: ({ table }) => (
@@ -31,6 +32,7 @@ export const columns: ColumnDef<Video>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+  */
   {
     accessorKey: "id",
     header: ({ column }) => null,

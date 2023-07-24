@@ -20,7 +20,7 @@ export function RefreshStudio() {
         }
       })
     }, 2000)
-  }, [])
+  }, [pathname])
   
   // TODO we could display a spinner here
   return <></>

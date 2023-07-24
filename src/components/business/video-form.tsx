@@ -26,8 +26,8 @@ export const VideoForm = () => {
         </div>
         <div className="flex flex-col w-1/2 text-center">
           <p className="text-sl font-thin">
-            For demonstration purposes only. Please use responsibly, and cancel any video you don't need anymore.
-            You have been assigned this temporary unique URL ID: <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">{ownerId}</a>
+            For demonstration purposes only. Please use responsibly, and cancel any video you don&apos;t need anymore.
+            You have been assigned this permalink ID: <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">{ownerId}</a>
 
           </p>
         </div>

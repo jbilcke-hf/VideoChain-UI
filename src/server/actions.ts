@@ -8,8 +8,6 @@ export async function handleFormSubmit(formData: FormData) {
   await createNewVideo(ownerId, {
     prompt: `${formData.get("prompt") || ""}`,
   })
-  // for doc see https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions
-  revalidatePath(`/studio/${ownerId}`)
 }
 
 export async function refreshStudio(ownerId: string) {

@@ -1,5 +1,7 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
+
 import { Video, VideoAPIRequest, GenericAPIResponse, VideoStatusRequest, VideoStatus } from "@/app/types"
 
 import { GET, POST, DELETE, PATCH } from "./base"
@@ -31,6 +33,8 @@ export const getVideo = async (ownerId: string, videoId: string) => {
 export const setVideoStatus = async (ownerId: string, videoId: string, status: VideoStatus) => {
   const task = await PATCH<VideoStatusRequest, GenericAPIResponse>(`${ownerId}/${videoId}`, { status }, null as unknown as Video)
 
+  revalidatePath(`/studio/${ownerId}`)
+
   return task
 }
 
@@ -57,6 +61,8 @@ export const createNewVideo = async (ownerId: string, taskRequest: VideoAPIReque
     null as unknown as Video
   )
 
+  // for doc see https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions
+  revalidatePath(`/studio/${ownerId}`)
   return task
 }
 

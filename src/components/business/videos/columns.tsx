@@ -57,8 +57,20 @@ export const columns: ColumnDef<Video>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Progress" />
     ),
-    cell: ({ row: { original: { progressPercent }} }) => (
-      <div className="flex items-center"><span>{Number(progressPercent || 0)}%</span></div>
+    cell: ({ row: { original: { progressPercent, status }} }) => (
+      <div className="flex items-center"><span>{
+        status === "pending"
+          ? `${Number(progressPercent || 0)}%}`
+        : status === "completed"
+          ? "done"
+          : status === "abort"
+          ? "N.A."
+          : status === "delete"
+          ? "N.A."
+        : status === "pause"
+          ? "paused"
+          : "N.A."
+      }</span></div>
     ),
     enableSorting: false,
   },
@@ -112,9 +124,20 @@ export const columns: ColumnDef<Video>[] = [
     enableHiding: false,
   },
   {
+    id: "status",
+    header: ({ column }) => null, // no header
+    cell: ({ row: { original, original: { status } } }) =>
+      status === "pending" ? <ChangeStatusButton video={original} status="pause">Pause</ChangeStatusButton> :
+      status === "pause" ? <ChangeStatusButton video={original} status="pending">Continue</ChangeStatusButton> :
+      null,
+    enableSorting: false,
+    enableHiding: false,
+  },
+
+  {
     id: "delete",
     header: ({ column }) => null, // no header
-    cell: ({ row: { original } }) =>
+    cell: ({ row: { original, original: { status } } }) =>
       <ChangeStatusButton video={original} status="delete">Delete</ChangeStatusButton>,
     enableSorting: false,
     enableHiding: false,

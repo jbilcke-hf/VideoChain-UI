@@ -26,10 +26,9 @@ export const VideoForm = () => {
         </div>
         <div className="flex flex-col w-1/2 text-center">
           <p className="text-md font-thin">
-            This is an experimental Space, for research and demonstration purposes only.
-          </p>
-          <p className="text-md font-thin">
-            This page has a unique URL, keep <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">the link</a> to share videos!
+            Video generation use shared resources, so please use responsibly. You can delete pending videos to accelerate other ones.
+            You have been assigned this temporary unique URL ID: <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">{ownerId}</a>
+
           </p>
         </div>
       </div>

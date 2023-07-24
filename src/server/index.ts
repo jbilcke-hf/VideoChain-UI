@@ -34,12 +34,13 @@ export const setVideoStatus = async (ownerId: string, videoId: string, status: V
   return task
 }
 
+/*
 export const deleteVideo = async (ownerId: string, videoId: string) => {
-  const task = await DELETE<GenericAPIResponse>(`${ownerId}/${videoId}`, { success: true })
-
+  const task = await DELETE<GenericAPIResponse>(`${ownerId}/${videoId}`, { success: false })
   return task
 }
 
+*/
 /*
 export async function deleteVideos(ownerId: string, videoIds: string[]) {
   const task = await DELETE<GenericAPIResponse>(ownerAndVideoId, { success: true })
@@ -49,6 +50,7 @@ export async function deleteVideos(ownerId: string, videoIds: string[]) {
 */
 
 export const createNewVideo = async (ownerId: string, taskRequest: VideoAPIRequest) => {
+  console.log("create new video")
   const task = await POST<VideoAPIRequest, Video>(
     ownerId,
     taskRequest,

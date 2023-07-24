@@ -4,11 +4,10 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 
 import { DataTableColumnHeader } from "./column-header"
-import { VideoActions } from "./video-actions"
 
 import { Video } from "@/app/types"
-import { deleteVideo } from "@/server"
 import { triggerDownload } from "@/lib/triggerDownload"
+import { ChangeStatusButton } from "./change-status-button"
 
 export const columns: ColumnDef<Video>[] = [
   {
@@ -83,7 +82,7 @@ export const columns: ColumnDef<Video>[] = [
     enableHiding: false,
   },
   {
-    id: "save",
+    id: "scene",
     header: ({ column }) => null,
     cell: ({ row: { original } }) => {
       const scene = JSON.stringify({
@@ -113,9 +112,8 @@ export const columns: ColumnDef<Video>[] = [
   {
     id: "delete",
     header: ({ column }) => null, // no header
-    cell: ({ row: { original } }) => <div
-      className="hover:underline cursor-pointer"
-      onClick={() => { deleteVideo(original.ownerId, original.id) }}>Delete</div>,
+    cell: ({ row: { original } }) =>
+      <ChangeStatusButton video={original} status="delete">Delete</ChangeStatusButton>,
     enableSorting: false,
     enableHiding: false,
   },

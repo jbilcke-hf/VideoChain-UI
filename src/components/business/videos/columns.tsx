@@ -3,12 +3,13 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 
-import { DataTableColumnHeader } from "./data-table-column-header"
-import { DataTableRowActions } from "./data-table-row-actions"
+import { DataTableColumnHeader } from "./column-header"
+import { VideoActions } from "./video-actions"
 
-import { VideoTask } from "@/app/types"
+import { Video } from "@/app/types"
+import { deleteVideo } from "@/server"
 
-export const columns: ColumnDef<VideoTask>[] = [
+export const columns: ColumnDef<Video>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -42,15 +43,11 @@ export const columns: ColumnDef<VideoTask>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Prompt" />
     ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="max-w-[500px] font-medium">
-            {row.getValue("videoPrompt")}
-          </span>
-        </div>
-      )
-    },
+    cell: ({ row: { original: { videoPrompt }} }) => (
+      <div className="flex space-x-2">
+        <span className="max-w-[500px] font-medium">{videoPrompt}</span>
+      </div>
+    ),
     enableSorting: false,
   },
   {
@@ -58,52 +55,50 @@ export const columns: ColumnDef<VideoTask>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Progress" />
     ),
-    cell: ({ row }) => {
-      const progress = Number(row.getValue("progressPercent") || 0)
-
-      return (
-        <div className="flex items-center">
-          <span>{progress}%</span>
-        </div>
-      )
-    },
+    cell: ({ row: { original: { progressPercent }} }) => (
+      <div className="flex items-center"><span>{Number(progressPercent || 0)}%</span></div>
+    ),
     enableSorting: false,
   },
   {
-    accessorKey: "preview",
-    header: ({ column }) => (
-      null // no header
-    ),
-    cell: ({ row }) => <div className="w-[100px]">
+    accessorKey: "fileName",
+    header: ({ column }) => null,// no header
+    cell: ({ row: { original: { ownerId, id, progressPercent } } }) => <div className="w-[100px]">
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
-        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>
-        <video src={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}?progress=${row.getValue("progressPercent") || 0}`} muted />
+        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${ownerId}/${id}.mp4`}>
+        <video src={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${ownerId}/${id}.mp4?progress=${progressPercent || 0}`} muted />
       </a>
     </div>,
     enableSorting: false,
     enableHiding: false,
   },
+  /*
   {
     accessorKey: "fileName",
-    header: ({ column }) => (
-      null // no header
-    ),
-    cell: ({ row }) => <div className="">
+    header: ({ column }) => null,
+    cell: ({ row: { original: { fileName, ownerId, id }} }) => <div className="">
       <a
         className="hover:underline cursor-pointer"
         target="_blank"
-        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${row.getValue("fileName")}`}>Save</a>
+        href={`${process.env.NEXT_PUBLIC_DOWNLOAD_URL}/${ownerId}/${id}.mp4`}>Save</a>
     </div>,
     enableSorting: false,
     enableHiding: false,
   },
-  /*
-  action menu (currently disabled)
+  */
+  {
+    accessorKey: "delete",
+    header: ({ column }) => null, // no header
+    cell: ({ row: { original } }) => <div
+      className="hover:underline cursor-pointer"
+      onClick={() => { deleteVideo(original.ownerId, original.id) }}>Delete</div>,
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => <VideoActions row={row} />,
   },
-  */
 ]

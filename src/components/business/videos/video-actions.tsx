@@ -13,12 +13,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { VideoTask } from "@/app/types"
+import { Video } from "@/app/types"
 
-export function DataTableRowActions({
+export function VideoActions({
   row,
 }: {
-  row: Row<VideoTask>
+  row: Row<Video>
 }) {
   const task = row.original
 
@@ -34,6 +34,10 @@ export function DataTableRowActions({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
+      <DropdownMenuItem>
+          Pause generation
+          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+        </DropdownMenuItem>
         <DropdownMenuItem>Download</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>

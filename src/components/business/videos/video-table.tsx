@@ -24,16 +24,16 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { columns } from "@/components/business/tasks/columns"
-import { VideoTask } from "@/app/types"
+import { columns } from "@/components/business/videos/columns"
+import { Video } from "@/app/types"
 import { useState } from "react"
 
-export function VideoTasksQueue({
-  videoTasks = [],
+export function VideosQueue({
+  videos = [],
   onSelectVideo,
 }: {
-  videoTasks: VideoTask[]
-  onSelectVideo: (task: VideoTask) => void
+  videos: Video[]
+  onSelectVideo: (task: Video) => void
 }) {
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -44,8 +44,8 @@ export function VideoTasksQueue({
   const [sorting, setSorting] = useState<SortingState>([])
 
   const table = useReactTable({
-    data: videoTasks,
-    columns: columns as ColumnDef<VideoTask, any>[],
+    data: videos,
+    columns: columns as ColumnDef<Video, any>[],
     state: {
       sorting,
       columnVisibility,
@@ -98,7 +98,7 @@ export function VideoTasksQueue({
                   className="cursor-pointer"
                   onClick={() => {
                     const videoId = `${row.getValue("id") || ""}`
-                    const video = videoTasks.find(({ id }) => id === videoId)
+                    const video = videos.find(({ id }) => id === videoId)
                     if (video) {
                       onSelectVideo(video)
                     }

@@ -1,8 +1,8 @@
 "use client"
 
-import { VideoTask } from "@/app/types"
+import { Video } from "@/app/types"
 
-export const VideoPlayer = ({ video }: { video?: VideoTask }) => {
+export const VideoPlayer = ({ video }: { video?: Video }) => {
 
   if (typeof video === "undefined") {
     return <div className="flex w-full h-screen items-center justify-center text-center">

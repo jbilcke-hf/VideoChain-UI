@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { experimental_useFormStatus as useFormStatus } from "react-dom"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { formSubmit } from "@/server/actions"
+import { handleFormSubmit } from "@/server/actions"
 
 export const VideoForm = () => {
   const pathname = usePathname()
@@ -15,7 +15,7 @@ export const VideoForm = () => {
 
   return (
     <form
-      action={formSubmit}
+      action={handleFormSubmit}
     >
       <div className="flex flex-col md:hidden w-full text-center">
         <h2 className="text-4xl font-thin tracking-tight">VideoChain UI</h2>

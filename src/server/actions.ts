@@ -1,17 +1,13 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { submitNewTask } from "."
+import { createNewVideo } from "."
 
-export async function formSubmit(formData: FormData) {
-
+export async function handleFormSubmit(formData: FormData) {
   const ownerId = `${formData.get("ownerId") || ""}`
-  console.log('submitting to ', ownerId)
-  await submitNewTask({
+  await createNewVideo(ownerId, {
     prompt: `${formData.get("prompt") || ""}`,
-    ownerId,
   })
-  console.log('calling revalidate', ownerId)
   // for doc see https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions
   revalidatePath(`/studio/${ownerId}`)
 }

@@ -6,6 +6,7 @@ const nextConfig = {
     serverActions: true,
   },
 
+  /*
   async redirects() {
     return [
       {
@@ -15,6 +16,7 @@ const nextConfig = {
       },
     ]
   },
+  */
 }
 
 module.exports = nextConfig

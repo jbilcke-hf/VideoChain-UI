@@ -2,7 +2,7 @@ const { promises: fs } = require("node:fs")
 
 const main = async () => {
   console.log('generating shot..')
-  const response = await fetch(process.env."http://localhost:3000/api/shot", {
+  const response = await fetch("http://localhost:3000/api/shot", {
     method: "POST",
     headers: {
       "Accept": "application/json",

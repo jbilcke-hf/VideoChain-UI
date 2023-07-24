@@ -1,39 +1,60 @@
 "use server"
 
-import { VideoTask, VideoTaskRequest } from "@/app/types"
+import { Video, VideoAPIRequest, GenericAPIResponse, VideoStatusRequest, VideoStatus } from "@/app/types"
 
-import { get, post } from "./base"
+import { GET, POST, DELETE, PATCH } from "./base"
 
 // note: for security purposes we do not directly expose the VideoChain API:
 // all calls are protected with a token, that way it the VideooChain API can stay
 // lightweight, security and quotas are handled outside
 
-// attention: this return *ALL* pending tasks, including those of other users
-export const getPendingTasks = async () => {
-  const tasks = await get<VideoTask[]>("", [])
+// this should be used by the admin only
+export const getAllVideos = async () => {
+  const tasks = await GET<Video[]>("", [])
 
   return tasks
 }
 
 // return all tasks of a owner
-export const getTasks = async (ownerId: string) => {
-  const tasks = await get<VideoTask[]>(`owner/${ownerId}`, [])
+export const getVideos = async (ownerId: string) => {
+  const tasks = await GET<Video[]>(ownerId, [])
 
   return tasks
 }
 
-export const getTask = async (ownerAndVideoId: string) => {
-  const task = await get<VideoTask>(ownerAndVideoId, null as unknown as VideoTask)
+export const getVideo = async (ownerId: string, videoId: string) => {
+  const task = await GET<Video>(`${ownerId}/${videoId}`, null as unknown as Video)
 
   return task
 }
 
-export const submitNewTask = async (taskRequest: VideoTaskRequest) => {
-  const task = await post<VideoTaskRequest, VideoTask>(
-    "",
+export const setVideoStatus = async (ownerId: string, videoId: string, status: VideoStatus) => {
+  const task = await PATCH<VideoStatusRequest, GenericAPIResponse>(`${ownerId}/${videoId}`, { status }, null as unknown as Video)
+
+  return task
+}
+
+export const deleteVideo = async (ownerId: string, videoId: string) => {
+  const task = await DELETE<GenericAPIResponse>(`${ownerId}/${videoId}`, { success: true })
+
+  return task
+}
+
+/*
+export async function deleteVideos(ownerId: string, videoIds: string[]) {
+  const task = await DELETE<GenericAPIResponse>(ownerAndVideoId, { success: true })
+  
+  return task
+}
+*/
+
+export const createNewVideo = async (ownerId: string, taskRequest: VideoAPIRequest) => {
+  const task = await POST<VideoAPIRequest, Video>(
+    ownerId,
     taskRequest,
-    null as unknown as VideoTask
+    null as unknown as Video
   )
 
   return task
 }
+

@@ -1,3 +1,12 @@
+export type VideoStatus =
+  | 'pending'
+  | 'abort' // this is an order (the video might still being processed by a task)
+  | 'delete' // this is an order (the video might still being processed by a task)
+  | 'pause' // this is an order (the video might still being processed by a task)
+  | 'completed'
+  | 'unknown'
+
+
 export type VideoTransition =
   | 'dissolve'
   | 'bookflip'
@@ -139,6 +148,8 @@ export interface VideoShotMeta {
 export interface VideoShotData {
   // must be unique
   id: string
+  sequenceId: string
+  ownerId: string
 
   fileName: string
 
@@ -158,6 +169,7 @@ export interface VideoShotData {
   nbCompletedSteps: number
   nbTotalSteps: number
   progressPercent: number
+  createdAt: string
   completedAt: string
   completed: boolean
   error: string
@@ -204,15 +216,21 @@ export interface VideoSequenceMeta {
 export interface VideoSequenceData {
   // must be unique
   id: string
-  
+
+  ownerId: string
+
   fileName: string
 
   // used to check compatibility
   version: number
 
+  status: VideoStatus
+
+  hasGeneratedSpecs: boolean
   hasAssembledVideo: boolean
   nbCompletedShots: number
   progressPercent: number
+  createdAt: string
   completedAt: string
   completed: boolean
   error: string
@@ -220,13 +238,21 @@ export interface VideoSequenceData {
 
 export type VideoSequence = VideoSequenceMeta & VideoSequenceData
 
-export type VideoTaskRequest = Partial<{
+export type VideoStatusRequest = {
+  status: VideoStatus
+}
+
+export type GenericAPIResponse = {
+  success?: boolean
+  error?: string
+}
+
+export type VideoAPIRequest = Partial<{
   prompt: string
-  ownerId: string
   sequence: Partial<VideoSequenceMeta>
   shots: Array<Partial<VideoShotMeta>>
 }>
 
-export type VideoTask = VideoSequence & {
+export type Video = VideoSequence & {
   shots: VideoShot[]
 }

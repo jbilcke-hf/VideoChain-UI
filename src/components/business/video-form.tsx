@@ -17,7 +17,7 @@ export const VideoForm = () => {
     <form
       action={handleFormSubmit}
     >
-      <div className="flex flex-row w-full">
+      <div className="flex flex-row w-full mb-3">
         <div className="flex flex-col w-1/2 text-center">
           <h2 className="text-4xl font-thin tracking-tight">VideoChain 🎬</h2>
           <p className="text-md font-thin">
@@ -25,7 +25,7 @@ export const VideoForm = () => {
           </p>
         </div>
         <div className="flex flex-col w-1/2 text-center">
-          <p className="text-md font-thin">
+          <p className="text-sl font-thin">
             For demonstration purposes only. Please use responsibly, and cancel any video you don't need anymore.
             You have been assigned this temporary unique URL ID: <a href={`/studio/${ownerId}`} className="font-normal" target="_blank">{ownerId}</a>
 

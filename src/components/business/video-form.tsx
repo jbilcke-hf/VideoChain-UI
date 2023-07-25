@@ -44,7 +44,7 @@ export const VideoForm = () => {
         <Textarea
           id="prompt"
           name="prompt"
-          placeholder="a cat playing the piano during 6 seconds"
+          placeholder="3 clips of a cat playing the piano"
           className="mr-3 md:mr-0"
         />
 

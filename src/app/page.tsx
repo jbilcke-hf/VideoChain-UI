@@ -12,7 +12,7 @@ export default function Index() {
     if (uuid) {
       window.location.href = `/studio/${uuid}`
     } else {
-      const existingUuid = `${localStorage.getItem(key)} || ""`
+      const existingUuid = `${localStorage.getItem(key) || ""}`
       if (existingUuid?.length > 10) {
         setUuid(existingUuid)
       } else {

@@ -6,6 +6,7 @@ import { Video, VideoAPIRequest, GenericAPIResponse, VideoStatusRequest, VideoSt
 
 import { GET, POST, DELETE, PATCH } from "./base"
 
+
 // note: for security purposes we do not directly expose the VideoChain API:
 // all calls are protected with a token, that way it the VideooChain API can stay
 // lightweight, security and quotas are handled outside
